@@ -7,6 +7,19 @@ Used: https://egghead.io/lessons/remix-install-and-model-data-with-prisma
 2. Load up prisma studio: `npx prisma studio`
 3. Run remix dev server: `npm run dev`
 
+## Development flow
+1. Get setup
+2. Make dev updates & test locally
+3. Push changes:
+   1. git checkout -b feature/{{feature name e.g. add-h1}}
+   2. git status // check which branch you're on and where its at
+   3. git add . // or:
+      1. git add app/routes/index.tsx
+      2. git add -A stages all changes
+      3. git add . stages new files and modifications, without deletions (on the current directory and its subdirectories).
+      4. git add -u stages modifications and deletions, without new files
+   4. git commit -m 'commit message'
+
 ## Stack
 Written in order of implementation
 - remix - create-remix - from scratch
@@ -43,4 +56,9 @@ Written in order of implementation
     - run test data on a new branche
     - then push the branch
     - data on old branch will be cleared but main branch data retained
-- 
+- Vercel - hosting
+  - connect via git and import the app
+  - will fail initially because prisma requires a db url to be set
+    - fix by going to Dash > Integrations > Planet Scale > Add > Select Project > select Prisma > Env vars will be auto-generated
+    - Then, remix-social > Settings > Env vars > check DATABASE_URL is setup. This should match the planetscale > remix-social > connect > Prisma/Node value
+    - Likely need to REDEPLOY
