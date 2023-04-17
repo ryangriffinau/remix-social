@@ -23,13 +23,12 @@ model Post {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   title     String?
-  body      String?
+  body      String
   author    User     @relation(fields: [authorId], references: [id])
   authorId  String
 
   // if index is not included for the relation, performance will be bad
-  // have left off for now to match course
-  // @@index([authorId])
+  @@index([authorId])
 }
 
 // note the hashed pw - we don't want to see the real one

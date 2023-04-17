@@ -58,7 +58,7 @@ export const action: ActionFunction = async ({ request }) => {
   await createPost({
     title: result.data.title ?? null,
     body: result.data.body,
-    authorId: "bad-id-will-fix"
+    authorId: "badId"
   }
   );
 

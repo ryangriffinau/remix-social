@@ -54,6 +54,13 @@ Used: https://egghead.io/lessons/remix-install-and-model-data-with-prisma
       9. SWITCH branches across all: pscale, pscale connection, git
       10. close connection to pscale dev branch and relauch prod if needed
    5. always branch both db and code - allows to document step by step the changes
+   6. **debugging server issues**: where having server/production only issues, use the Vercel CLI & dev to debug
+      1. if not installed: `npm i -g vercel`
+      2. `vercel dev` - this is just a dev version of your vercel 
+      3. Link to the existing vercel project if you've previously deployed to prod
+      4. load the `localhost` dev server and compare to your remix dev server
+      5. make sure to test out various functionality as it could be functions that need to be fired whereas the prod server is auto-testing them
+      6. confirm .vercel is in gitignore
 
 ## Stack
 Written in order of implementation
