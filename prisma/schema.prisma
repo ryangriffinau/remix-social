@@ -24,4 +24,21 @@ model Post {
   updatedAt DateTime @updatedAt
   title     String?
   body      String
+  author    User     @relation(fields: [authorId], references: [id])
+  authorId  String
+
+  // if index is not included for the relation, performance will be bad
+  @@index([authorId])
+}
+
+// note the hashed pw - we don't want to see the real one
+model User {
+  id             String   @id @default(uuid())
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  name           String?
+  email          String   @unique
+  hashedPassword String
+  role           String   @default("USER")
+  posts          Post[]
 }

@@ -9,9 +9,10 @@ Used: https://egghead.io/lessons/remix-install-and-model-data-with-prisma
 
 ## Development flow
 1. Get setup
-2. Make dev updates & test locally
+2. fetch latest changes from remote - `git fetch origin`
+3. Make dev updates & test locally
    1. for new data models, see pscale notes below
-3. Push changes:
+4. Push changes:
    1. `git checkout -b feature/{{feature name e.g. add-h1}}`
    2. `git status // check which branch you're on and where its at`
    3. `git add .` // or:
@@ -20,12 +21,12 @@ Used: https://egghead.io/lessons/remix-install-and-model-data-with-prisma
       3. `git add .` stages new files and modifications, without deletions (on the current directory and its subdirectories).
       4. `git add -u` stages modifications and deletions, without new files
    4. `git commit -m 'commit message'`
-      1. // may need to: `git push --set-upstream origin feature/update-h1`
-   5. `git push`
+   5. push changes: `git push --set-upstream origin feature/update-h1`
+      1. can't use `git push` because the remote branch won't exist yet
    6. Access PR via terminal output
    7. Take a screenshot of UI change and add to the PR
    8. Create PR
-   9. Vercel auto-creates a preview deployment to the PR
+   9.  Vercel auto-creates a preview deployment to the PR
    10. Show Environemnt > View deployment > Review PR
    11. Add review comments
    12. Merge branch if ready
@@ -34,14 +35,32 @@ Used: https://egghead.io/lessons/remix-install-and-model-data-with-prisma
 
 **New model creation (or any db changes) process:**
    1. create new branch in pscale: `pscale branch create remix-social {{new model e.g. user}}`
-   2. connect to pscale branch: `pscale connect remix-social user --port 3309`
-   3. create git branch: 
-      1. make  sure all local changes have been commited / pushed etc
+   2. IMPORTANT: make sure there are no open connections to pscale
+   3. connect to pscale branch: `pscale connect remix-social user --port 3309`
+   4. create git branch: 
+      1. make sure all local repo changes have been commited / pushed etc
       2. checkout the master `git checkout main` 
       3. fetch commits from master branch of origin remote and then merge into the branch currently checked out `git pull origin main`
       4. create branch on the latest main - `git checkout -b {{initials eg. rg}}/{{feature eg user}}`
-      5. 
-   4. always branch both db and code - allows to document step by step the changes
+      5. create user model in schema.prisma
+      6. push to prisma `npx prisma db push`
+         1. **note - must be  a change to schema for a deploy request to be available in pscale**
+         2. note that you may receive errors where new models require relationships to existing data - you'll need to work out how to handle e.g. 
+            1. set as optional 
+            2. push up changes and update relations
+            3. update schema.prisma and re-push
+      7. redeploy to gh
+      8. vercel triggers rebuild
+      9. SWITCH branches across all: pscale, pscale connection, git
+      10. close connection to pscale dev branch and relauch prod if needed
+   5. always branch both db and code - allows to document step by step the changes
+   6. **debugging server issues**: where having server/production only issues, use the Vercel CLI & dev to debug
+      1. if not installed: `npm i -g vercel`
+      2. `vercel dev` - this is just a dev version of your vercel 
+      3. Link to the existing vercel project if you've previously deployed to prod
+      4. load the `localhost` dev server and compare to your remix dev server
+      5. make sure to test out various functionality as it could be functions that need to be fired whereas the prod server is auto-testing them
+      6. confirm .vercel is in gitignore
 
 ## Stack
 Written in order of implementation
