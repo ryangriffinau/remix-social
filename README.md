@@ -44,12 +44,15 @@ Used: https://egghead.io/lessons/remix-install-and-model-data-with-prisma
       4. create branch on the latest main - `git checkout -b {{initials eg. rg}}/{{feature eg user}}`
       5. create user model in schema.prisma
       6. push to prisma `npx prisma db push`
-         1. note that you may receive errors where new models require relationships to existing data - you'll need to work out how to handle e.g. 
+         1. **note - must be  a change to schema for a deploy request to be available in pscale**
+         2. note that you may receive errors where new models require relationships to existing data - you'll need to work out how to handle e.g. 
             1. set as optional 
             2. push up changes and update relations
             3. update schema.prisma and re-push
       7. redeploy to gh
       8. vercel triggers rebuild
+      9. SWITCH branches across all: pscale, pscale connection, git
+      10. close connection to pscale dev branch and relauch prod if needed
    5. always branch both db and code - allows to document step by step the changes
 
 ## Stack
