@@ -105,3 +105,41 @@ Written in order of implementation
     - fix by going to Dash > Integrations > Planet Scale > Add > Select Project > select Prisma > Env vars will be auto-generated
     - Then, remix-social > Settings > Env vars > check DATABASE_URL is setup. This should match the planetscale > remix-social > connect > Prisma/Node value
     - Likely need to REDEPLOY
+
+
+## Some other Git workflows
+### Pull down from remote without losing local
+
+To pull down the latest changes from the remote repo without losing your local changes, you can follow these steps:
+
+Add and commit any untracked files:
+`git add .`
+`git commit -m "Add Button.tsx"`
+
+Stash your local changes:
+`git stash save "My local changes"`
+This command will save your local changes in a temporary area (the stash) and revert your working directory to the last commit.
+
+Pull the latest changes from the remote repo:
+`git pull origin main`
+This command will fetch the latest changes from the remote 'origin' and branch 'main', and merge them into your local branch.
+
+  **If divergent:**
+  To pull changes and merge them with your local branch:
+  `git pull --no-rebase origin main`
+
+  To pull changes and rebase your local branch onto the remote branch:
+  `git pull --rebase origin main`
+
+Apply your stashed local changes:
+`git stash apply`
+This command will apply the changes you stashed earlier to the updated working directory. If there are any conflicts, you will need to resolve them manually.
+
+If everything looks good, you can remove the stash (optional):
+`git stash drop`
+Now, your local branch is up-to-date with the remote branch, and your local changes have been applied on top of the latest changes.
+
+
+
+
+
