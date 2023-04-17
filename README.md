@@ -34,14 +34,20 @@ Used: https://egghead.io/lessons/remix-install-and-model-data-with-prisma
 
 **New model creation (or any db changes) process:**
    1. create new branch in pscale: `pscale branch create remix-social {{new model e.g. user}}`
-   2. connect to pscale branch: `pscale connect remix-social user --port 3309`
-   3. create git branch: 
-      1. make  sure all local changes have been commited / pushed etc
+   2. IMPORTANT: make sure there are no open connections to pscale
+   3. connect to pscale branch: `pscale connect remix-social user --port 3309`
+   4. create git branch: 
+      1. make sure all local repo changes have been commited / pushed etc
       2. checkout the master `git checkout main` 
       3. fetch commits from master branch of origin remote and then merge into the branch currently checked out `git pull origin main`
       4. create branch on the latest main - `git checkout -b {{initials eg. rg}}/{{feature eg user}}`
-      5. 
-   4. always branch both db and code - allows to document step by step the changes
+      5. create user model in schema.prisma
+      6. push to prisma `npx prisma db push`
+         1. note that you may receive errors where new models require relationships to existing data - you'll need to work out how to handle e.g. 
+            1. set as optional 
+            2. push up changes and update relations
+            3. update schema.prisma and re-push
+   5. always branch both db and code - allows to document step by step the changes
 
 ## Stack
 Written in order of implementation
