@@ -77,7 +77,7 @@ export default function Index() {
   const formData = useActionData<ActionData>();
   return (
     <div className="flex flex-col items-center">
-      <h1 className="text-3xl font-bold underline">Welcome to Remix</h1>
+      <h1 className="text-3xl font-bold underline mb-2">💬 Remix Social App</h1>
       {/* we don't define the action prop inside the component as it depends on page context its rendered in  */}
       {/* form is being called inside an index action, remix uses this to determine the POST action is occurring inside an index route and not a parent layout component */}
       <PostForm
