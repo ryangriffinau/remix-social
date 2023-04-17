@@ -14,8 +14,13 @@ export const meta: V2_MetaFunction = () => {
 
 // TYPES
 // LoaderData is the type of the data returned from the loader function
+// we were just retrieving one type originally (Post[]) but now we are returning multiple types (Post & author)
+// now we are using the types which are returned by the getPosts function
+// Awaited will unwrap a promise type - we are using a prisma promise < > so we need to unwrap it
+// previously you'd have to add a custom type to do the unwrapping 
+// you can also now update getPosts and it's types without having to update the loader function
 type LoaderData = {
-  posts: Post[]
+  posts: Awaited<ReturnType<typeof getPosts>>;
 }
 
 type ActionData = {
@@ -52,7 +57,8 @@ export const action: ActionFunction = async ({ request }) => {
 
   await createPost({
     title: result.data.title ?? null,
-    body: result.data.body
+    body: result.data.body,
+    authorId: "bad-id-will-fix"
   }
   );
 
@@ -88,7 +94,10 @@ export default function Index() {
       <ul>
         {posts.map((post) =>(
         <li className="mb-2" key={post.title && "-" && post.id.substring(0,8)}>
-          <PostComponent header={post.title}>
+          <PostComponent 
+            header={post?.title}
+            authorName={post?.author?.email}
+          >
             {post.body}
           </PostComponent>
           
