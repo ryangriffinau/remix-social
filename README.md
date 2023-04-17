@@ -48,6 +48,8 @@ Used: https://egghead.io/lessons/remix-install-and-model-data-with-prisma
             1. set as optional 
             2. push up changes and update relations
             3. update schema.prisma and re-push
+      7. redeploy to gh
+      8. vercel triggers rebuild
    5. always branch both db and code - allows to document step by step the changes
 
 ## Stack
