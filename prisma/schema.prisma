@@ -28,7 +28,8 @@ model Post {
   authorId  String
 
   // if index is not included for the relation, performance will be bad
-  @@index([authorId])
+  // have left off for now to match course
+  // @@index([authorId])
 }
 
 // note the hashed pw - we don't want to see the real one

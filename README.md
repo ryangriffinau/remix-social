@@ -9,9 +9,10 @@ Used: https://egghead.io/lessons/remix-install-and-model-data-with-prisma
 
 ## Development flow
 1. Get setup
-2. Make dev updates & test locally
+2. fetch latest changes from remote - `git fetch origin`
+3. Make dev updates & test locally
    1. for new data models, see pscale notes below
-3. Push changes:
+4. Push changes:
    1. `git checkout -b feature/{{feature name e.g. add-h1}}`
    2. `git status // check which branch you're on and where its at`
    3. `git add .` // or:
@@ -20,12 +21,12 @@ Used: https://egghead.io/lessons/remix-install-and-model-data-with-prisma
       3. `git add .` stages new files and modifications, without deletions (on the current directory and its subdirectories).
       4. `git add -u` stages modifications and deletions, without new files
    4. `git commit -m 'commit message'`
-      1. // may need to: `git push --set-upstream origin feature/update-h1`
-   5. `git push`
+   5. push changes: `git push --set-upstream origin feature/update-h1`
+      1. can't use `git push` because the remote branch won't exist yet
    6. Access PR via terminal output
    7. Take a screenshot of UI change and add to the PR
    8. Create PR
-   9. Vercel auto-creates a preview deployment to the PR
+   9.  Vercel auto-creates a preview deployment to the PR
    10. Show Environemnt > View deployment > Review PR
    11. Add review comments
    12. Merge branch if ready
